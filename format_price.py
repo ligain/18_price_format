@@ -1,12 +1,19 @@
 import argparse
+from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 
 
 def format_price(price=None):
+
+    if type(price) == bool:
+        return
+
     try:
-        converted_price = float(price) if type(price) != bool else None
-        return '{:,.0f}'.format(converted_price).replace(',', ' ')
-    except (ValueError, TypeError):
-        pass
+        converted_price = Decimal(price).quantize(
+            Decimal('.01'), rounding=ROUND_HALF_UP)
+    except (InvalidOperation, ValueError, TypeError):
+        return
+
+    return '{:,.2f}'.format(converted_price).replace(',', ' ').replace('.00', '')
 
 
 def get_args():
