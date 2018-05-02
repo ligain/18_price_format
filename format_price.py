@@ -4,7 +4,7 @@ import argparse
 def format_price(price=None):
     try:
         converted_price = float(price) if type(price) != bool else None
-        return '{:,.0f}'.format(converted_price).replace(',', ' ')
+        return '{:,.2f}'.format(converted_price).replace(',', ' ')
     except (ValueError, TypeError):
         pass
 
